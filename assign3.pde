@@ -208,7 +208,7 @@ void draw() {
         //move
         enemyX += enemySpeed;
         enemyX %= width+ENEMYLENGTH*4;
-        if(enemyX / (width+ENEMYLENGTH*4) == 0){
+        if(enemyX >= (width+ENEMYLENGTH*4)){
           enemyY = random(40,400);
         }
         
@@ -220,6 +220,9 @@ void draw() {
             
         case ENEMY2:
           for(int i = 0;i < 5;i++){image(enemy,enemyX-i*ENEMYLENGTH,enemyY-i*ENEMYLENGTH);}
+          if(enemyY-4*ENEMYLENGTH<0){
+            enemyY = 4*ENEMYLENGTH;
+          }
         break;
         
         case ENEMY3:
@@ -235,6 +238,12 @@ void draw() {
             image(enemy,enemyX-i*ENEMYLENGTH,enemyY);
           }
           
+        }
+        if(enemyY+3*ENEMYLENGTH>height){
+          enemyY=height-(3*ENEMYLENGTH);
+        }
+        if(enemyY-2*ENEMYLENGTH<0){
+          enemyY=2*ENEMYLENGTH;
         }
         break;
       }
@@ -252,10 +261,12 @@ void draw() {
     break;
   
   case WIN:
+    
     break;
     
   case LOSE:
     image(end2,0,0);
+    enemyState = 1;
     //hover
     if(mouseX>215 && mouseX<425 && mouseY>300 && mouseY<340){
       image(end1,0,0);
